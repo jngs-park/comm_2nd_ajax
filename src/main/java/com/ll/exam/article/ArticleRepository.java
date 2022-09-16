@@ -1,5 +1,5 @@
 package com.ll.exam.article;
-import com.ll.exam.article.dto.ArticleDto;
+import com.ll.exam.article.Dto.ArticleDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
