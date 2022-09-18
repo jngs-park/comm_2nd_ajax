@@ -1,5 +1,8 @@
 package com.ll.exam.chat;
+
+import com.ll.exam.article.dto.ArticletDto;
 import com.ll.exam.chat.dto.ChatRoomDto;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -22,11 +25,19 @@ public class ChatRoomRepository {
         long id = ++lastId;
         ChatRoomDto newChatRoomDto = new ChatRoomDto(id, title, body);
         datum.add(newChatRoomDto);
-
         return id;
     }
-
     public List<ChatRoomDto> findAll() {
         return datum;
+    }
+
+    public ChatRoomDto findById(long id) {
+        for (ChatRoomDto chatRoomDto : datum) {
+            if (chatRoomDto.getId() == id) {
+                return chatRoomDto;
+            }
+        }
+
+        return null;
     }
 }
