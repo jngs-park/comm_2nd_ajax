@@ -1,4 +1,6 @@
 package com.ll.exam;
+
+import com.ll.exam.util.Ut;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,20 +21,15 @@ public class Rq {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=utf-8");
     }
-
     public String getParam(String paramName, String defaultValue) {
         String value = req.getParameter(paramName);
-
         if (value == null || value.trim().length() == 0) {
             return defaultValue;
         }
-
         return value;
     }
-
     public int getIntParam(String paramName, int defaultValue) {
         String value = req.getParameter(paramName);
-
         if (value == null) {
             return defaultValue;
         }
@@ -52,7 +49,6 @@ public class Rq {
     public void println(String str) {
         print(str + "\n");
     }
-
     public void setAttr(String name, Object value) {
         req.setAttribute(name, value);
     }
@@ -67,51 +63,39 @@ public class Rq {
             throw new RuntimeException(e);
         }
     }
-
     public String getPath() {
         return req.getRequestURI();
     }
-
     public String getActionPath() {
         String[] bits = req.getRequestURI().split("/");
-
         return "/%s/%s/%s".formatted(bits[1], bits[2], bits[3]);
     }
-
     public String getRouteMethod() {
         String method = getParam("_method", "");
-
         if (method.length() > 0 ) {
             return method.toUpperCase();
         }
         return req.getMethod();
     }
-
     public long getLongPathValueByIndex(int index, long defaultValue) {
         String value = getPathValueByIndex(index, null);
-
         if (value == null) {
             return defaultValue;
         }
-
         try {
             return Long.parseLong(value);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return defaultValue;
         }
     }
-
     public String getPathValueByIndex(int index, String defaultValue) {
         String[] bits = req.getRequestURI().split("/");
-
         try {
             return bits[4 + index];
         } catch (ArrayIndexOutOfBoundsException e) {
             return defaultValue;
         }
     }
-
     public void replace(String uri, String msg) {
         if (msg != null && msg.trim().length() > 0) {
             println("""
@@ -120,14 +104,12 @@ public class Rq {
                     </script>
                     """.formatted(msg));
         }
-
         println("""
                 <script>
                 location.replace("%s");
                 </script>
                 """.formatted(uri));
     }
-
     public void historyBack(String msg) {
         if (msg != null && msg.trim().length() > 0) {
             println("""
@@ -136,11 +118,17 @@ public class Rq {
                     </script>
                     """.formatted(msg));
         }
-
         println("""
                 <script>
                 history.back();
                 </script>
                 """);
+    }
+
+    public void json(Object data) {
+        resp.setContentType("application/json; charset=utf-8");
+
+        String jsonStr = Ut.json.toStr(data, "");
+        println(jsonStr);
     }
 }

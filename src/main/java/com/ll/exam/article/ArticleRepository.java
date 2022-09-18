@@ -1,5 +1,7 @@
 package com.ll.exam.article;
+
 import com.ll.exam.article.Dto.ArticleDto;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -52,5 +54,14 @@ public class ArticleRepository {
         if (articleDto == null) return;
 
         datum.remove(articleDto);
+    }
+
+    public void modify(long id, String title, String body) {
+        ArticleDto articleDto = findById(id);
+
+        if (articleDto == null) return;
+
+        articleDto.setTitle(title);
+        articleDto.setBody(body);
     }
 }

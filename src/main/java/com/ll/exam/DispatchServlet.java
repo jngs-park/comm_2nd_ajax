@@ -1,17 +1,14 @@
 package com.ll.exam;
 
 import com.ll.exam.article.ArticleController;
-
+import com.ll.exam.member.MemberController;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.ll.exam.member.MemberController;
-
-
 
 @WebServlet("/usr/*")
-public class DispatchSevelet extends HttpServlet {
+public class DispatchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         Rq rq = new Rq(req, resp);
@@ -42,7 +39,6 @@ public class DispatchSevelet extends HttpServlet {
                         break;
                 }
                 break;
-
             case "POST":
                 switch (rq.getActionPath()) {
                     case "/usr/article/write":
@@ -51,14 +47,14 @@ public class DispatchSevelet extends HttpServlet {
                     case "/usr/article/modify":
                         articleController.doModify(rq);
                         break;
-                    case "DELETE":
+                }
+                break;
+            case "DELETE":
                 switch (rq.getActionPath()) {
                     case "/usr/article/delete":
                         articleController.doDelete(rq);
                         break;
-                        }
                 }
-                break;
         }
     }
 

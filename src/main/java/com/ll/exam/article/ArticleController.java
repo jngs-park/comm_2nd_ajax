@@ -2,9 +2,7 @@ package com.ll.exam.article;
 
 import com.ll.exam.Rq;
 import com.ll.exam.article.Dto.ArticleDto;
-port com.ll.exam.util.Ut;
-
-
+import com.ll.exam.util.Ut;
 
 import java.util.List;
 
@@ -43,6 +41,7 @@ public class ArticleController {
         long id = articleService.write(title, body);
 
         rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 생성 되었습니다.".formatted(id));
+
     }
 
     public void showDetail(Rq rq) {
@@ -121,17 +120,17 @@ public class ArticleController {
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
 
+        articleService.modify(id, title, body);
+
         // 브라우저에게 해당 URI로 이동하는 자바스크립트를 전송해주세요.
         // 혹시 그 전에 전할 메세지가 있다면 alert 로 표시되도록 자바스크립트를 구성해주세요.
         rq.replace("/usr/article/detail/free/%d".formatted(id), "%d번 게시물이 수정되었습니다.".formatted(id));
-
     }
+
 
     public void getArticles(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
 
-        String jsonStr = Ut.json.toStr(articleDtos, "");
-
-        rq.println(jsonStr);
+        rq.json(articleDtos);
     }
 }
