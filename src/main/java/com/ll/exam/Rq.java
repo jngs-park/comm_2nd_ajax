@@ -1,5 +1,6 @@
 package com.ll.exam;
 
+import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.util.Ut;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 public class Rq {
     private final HttpServletRequest req;
     private final HttpServletResponse resp;
@@ -125,10 +128,22 @@ public class Rq {
                 """);
     }
 
-    public void json(Object data) {
+    public void json(Object resultData) {
         resp.setContentType("application/json; charset=utf-8");
 
-        String jsonStr = Ut.json.toStr(data, "");
+        String jsonStr = Ut.json.toStr(resultData, "");
         println(jsonStr);
+    }
+
+    public void json(Object data, String resultCode, String msg) {
+        json(new ResultData(resultCode, msg, data));
+    }
+
+    public void successJson(Object data) {
+        json(data, "S-1", "성공");
+    }
+
+    public void failJson(Object data) {
+        json(data, "F-1", "실패");
     }
 }
