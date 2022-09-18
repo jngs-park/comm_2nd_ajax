@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ArticleDto {
+public class ArticletDto {
     private long id;
     private String title;
     private String body;

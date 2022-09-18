@@ -2,7 +2,7 @@ package com.ll.exam.article;
 
 import com.ll.exam.ResultData;
 import com.ll.exam.Rq;
-import com.ll.exam.article.dto.ArticleDto;
+import com.ll.exam.article.dto.ArticletDto;
 import com.ll.exam.util.Ut;
 
 
@@ -17,7 +17,7 @@ public class ArticleController {
     }
 
     public void showList(Rq rq) {
-        List<ArticleDto> articleDtos = articleService.findAll();
+        List<ArticletDto> articleDtos = articleService.findAll();
 
         rq.setAttr("articles", articleDtos);
         rq.view("usr/article/list");
@@ -59,7 +59,7 @@ public class ArticleController {
             return;
         }
 
-        ArticleDto articleDto = articleService.findById(id);
+        ArticletDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
             rq.historyBack("해당 글이 존재하지 않습니다.");
@@ -78,7 +78,7 @@ public class ArticleController {
             return;
         }
 
-        ArticleDto articleDto = articleService.findById(id);
+        ArticletDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
             rq.historyBack("해당 글이 존재하지 않습니다.");
@@ -98,7 +98,7 @@ public class ArticleController {
             return;
         }
 
-        ArticleDto articleDto = articleService.findById(id);
+        ArticletDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
             rq.historyBack("해당 글이 존재하지 않습니다.");
@@ -117,7 +117,7 @@ public class ArticleController {
             return;
         }
 
-        ArticleDto articleDto = articleService.findById(id);
+        ArticletDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
             rq.historyBack("해당 글이 존재하지 않습니다.");
@@ -138,7 +138,7 @@ public class ArticleController {
     public void getArticles(Rq rq) {
         long fromId = rq.getLongParam("fromId", -1);
 
-        List<ArticleDto> articleDtos = null;
+        List<ArticletDto> articleDtos = null;
 
         if ( fromId == -1 ) {
             articleDtos = articleService.findAll();

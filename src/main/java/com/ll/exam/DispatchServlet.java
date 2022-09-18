@@ -1,5 +1,4 @@
 package com.ll.exam;
-
 import com.ll.exam.article.ArticleController;
 import com.ll.exam.chat.ChatController;
 import com.ll.exam.member.MemberController;
@@ -12,16 +11,17 @@ public class DispatchServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         Rq rq = new Rq(req, resp);
-
         MemberController memberController = new MemberController();
         ArticleController articleController = new ArticleController();
         ChatController chatController = new ChatController();
-
         switch (rq.getRouteMethod()) {
             case "GET":
                 switch (rq.getActionPath()) {
                     case "/usr/chat/createRoom":
                         chatController.createRoom(rq);
+                        break;
+                    case "/usr/chat/roomList":
+                        chatController.showRoomList(rq);
                         break;
                     case "/usr/article/modify":
                         articleController.showModify(rq);
@@ -48,6 +48,9 @@ public class DispatchServlet extends HttpServlet {
                 break;
             case "POST":
                 switch (rq.getActionPath()) {
+                    case "/usr/chat/createRoom":
+                        chatController.doCreateRoom(rq);
+                        break;
                     case "/usr/article/write":
                         articleController.doWrite(rq);
                         break;
