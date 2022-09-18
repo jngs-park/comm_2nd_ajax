@@ -1,4 +1,4 @@
-package com.ll.exam.article.Dto;
+package com.ll.exam.article.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

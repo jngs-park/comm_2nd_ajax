@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.ll.exam.article.Dto.ArticleDto;
+import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.util.Ut;
 import org.junit.jupiter.api.Test;
 
